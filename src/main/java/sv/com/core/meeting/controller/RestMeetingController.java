@@ -117,8 +117,8 @@ public class RestMeetingController {
                     }
                     timeAvailable.setUsers(users);
                     response.add(timeAvailable);
-                    time = helper.increaseTime(time);//increase time
                 }
+                time = helper.increaseTime(time);//increase time
             }
 
             return response;
