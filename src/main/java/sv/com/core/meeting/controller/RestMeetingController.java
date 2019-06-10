@@ -130,30 +130,4 @@ public class RestMeetingController {
     }
 
 
-//    Iterator<String> nombreIterator = nombreArrayList.iterator();
-//while(nombreIterator.hasNext()){
-//        String elemento = nombreIterator.next();
-//        System.out.print(elemento+" / ");
-//    }
-    @RequestMapping(method = RequestMethod.GET, path = "/test")
-    public @ResponseBody TimeAvailable test() throws Exception{
-        TimeAvailable response = new TimeAvailable();
-        try{
-            User user = new User();
-            ArrayList<User> users = new ArrayList<User>();
-
-            for (int i = 0; i <= 3; i++) {
-                user.setId(i);
-                user.setName("Randy");
-                user.setLastname("Randy");
-                users.add(user);
-            }
-            response.setTime("8:30");
-            response.setUsers(users);
-            return response;
-        }catch(Exception ex) {
-            return response;
-        }
-
-    }
 }
