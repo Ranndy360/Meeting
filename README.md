@@ -1,14 +1,14 @@
 # Meeting
 API Rest returns free user schedule, validate with JWT each request, you have to send a date to check user available that day.
 
-#Test
+# Test
 You are available to test with SoapUI, at `/src/main/resources/soapuiTest` is a .xml soap project.
 
-#Input
+# Input
 Is a Get function, you can access at:
 `http://localhost:8080/meeting/available?date=2019-06-10`
 
-#Output
+# Output
 ```[
       {
       "time": "8:00",
