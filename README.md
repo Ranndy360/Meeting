@@ -11,7 +11,7 @@ API Rest returns free user schedule, valided with JWT each request, see docs.
 * PostgresSQL  9.5
 
 # Install
-* Create a BDD name: donation_site 
-* Import SQL script from folder: donation_site/BDD
-* Add project to Eclipse
-* Run as Java Application
+* Create a BDD name: meeting 
+* Import SQL script from folder: /src/main/resources/database
+* Add project to IntelliJ
+* Run as SpringBoot Application
