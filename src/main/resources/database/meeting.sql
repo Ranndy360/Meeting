@@ -33,6 +33,40 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: account; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.account (
+    id integer NOT NULL,
+    username character varying(50),
+    password character varying(80)
+);
+
+
+ALTER TABLE public.account OWNER TO postgres;
+
+--
+-- Name: account_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.account_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.account_id_seq OWNER TO postgres;
+
+--
+-- Name: account_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.account_id_seq OWNED BY public.account.id;
+
+
+--
 -- Name: meeting; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -104,6 +138,13 @@ ALTER SEQUENCE public.user_id_seq OWNED BY public.user_agend.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
+ALTER TABLE ONLY public.account ALTER COLUMN id SET DEFAULT nextval('public.account_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.meeting ALTER COLUMN id SET DEFAULT nextval('public.meeting_id_seq'::regclass);
 
 
@@ -112,6 +153,20 @@ ALTER TABLE ONLY public.meeting ALTER COLUMN id SET DEFAULT nextval('public.meet
 --
 
 ALTER TABLE ONLY public.user_agend ALTER COLUMN id SET DEFAULT nextval('public.user_id_seq'::regclass);
+
+
+--
+-- Data for Name: account; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.account (id, username, password) VALUES (1, 'userTest', '$2a$10$Ijb8iivSJw8RKdnLl279HuWw9xFV4fjvt1JauF8rO1gsxVYs9.29i');
+
+
+--
+-- Name: account_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.account_id_seq', 1, true);
 
 
 --
@@ -167,6 +222,14 @@ INSERT INTO public.user_agend (id, name, lastname) VALUES (6, 'Sonya', NULL);
 --
 
 SELECT pg_catalog.setval('public.user_id_seq', 6, true);
+
+
+--
+-- Name: account_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.account
+    ADD CONSTRAINT account_pkey PRIMARY KEY (id);
 
 
 --
