@@ -12,7 +12,7 @@ public class Meeting implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
-
+    @Column(name = "user_id")
     private int user_id;
 
     @Temporal(TemporalType.TIMESTAMP)

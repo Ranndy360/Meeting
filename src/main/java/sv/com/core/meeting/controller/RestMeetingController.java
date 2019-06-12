@@ -1,15 +1,17 @@
 package sv.com.core.meeting.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sv.com.core.meeting.beans.TimeAvailable;
+import sv.com.core.meeting.beans.TimeAvailableBean;
+import sv.com.core.meeting.exception.EntityNotFoundException;
 import sv.com.core.meeting.helper.Helper;
 import sv.com.core.meeting.model.Meeting;
 import sv.com.core.meeting.model.User;
 import sv.com.core.meeting.service.MeetingService;
 import sv.com.core.meeting.service.UserService;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,13 +33,13 @@ public class RestMeetingController {
      * all meetings are half an hour long and
      * at least three people have to be available
      * @param date Date
-     * @return  TimeAvailable Object in json format
+     * @return  TimeAvailableBean Object in json format
      * @throws Exception
      */
     @RequestMapping(method = RequestMethod.GET, path = "/available")
-    public @ResponseBody ArrayList<TimeAvailable> availableUser(@RequestParam String date) throws Exception{
+    public @ResponseBody ArrayList<TimeAvailableBean> availableUser(@RequestParam String date) throws Exception{
         //response object
-        ArrayList<TimeAvailable> response = new ArrayList<TimeAvailable>();
+        ArrayList<TimeAvailableBean> response = new ArrayList<TimeAvailableBean>();
         try{
             int hour=800;
             //format params
@@ -95,8 +97,8 @@ public class RestMeetingController {
                     split = (time>=1000)?2:1; //if has more that 3 characters
                     String timeFormat = bufferTimeFormat.substring(0,split)+":"+bufferTimeFormat.substring(bufferTimeFormat.length()-2);
 
-                    TimeAvailable timeAvailable =  new TimeAvailable();
-                    timeAvailable.setTime(timeFormat);
+                    TimeAvailableBean timeAvailableBean =  new TimeAvailableBean();
+                    timeAvailableBean.setTime(timeFormat);
 
                     ArrayList<User> users = new ArrayList<User>();
                     for (User userRecord:userBean) {//check who is available
@@ -115,8 +117,8 @@ public class RestMeetingController {
                                 users.add(userRecord);
                         }
                     }
-                    timeAvailable.setUsers(users);
-                    response.add(timeAvailable);
+                    timeAvailableBean.setUsers(users);
+                    response.add(timeAvailableBean);
                 }
                 time = helper.increaseTime(time);//increase time
             }
@@ -127,6 +129,11 @@ public class RestMeetingController {
             return response;
         }
 
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity handleEntityNotFoundException(EntityNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
 

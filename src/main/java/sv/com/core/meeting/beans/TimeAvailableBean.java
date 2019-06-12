@@ -5,7 +5,7 @@ import sv.com.core.meeting.model.User;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class TimeAvailable implements Serializable {
+public class TimeAvailableBean implements Serializable {
 
     private String time;
     private ArrayList<User> users;
