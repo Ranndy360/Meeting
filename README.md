@@ -24,7 +24,7 @@ Is a POST function, you can access at:
 Is a GET function, you can access at:
 `http://localhost:8080/meeting/available?date=2019-06-10`
 
-# Output
+#### Output
 ```[
       {
       "time": "8:00",
